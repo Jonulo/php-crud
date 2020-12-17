@@ -3,20 +3,6 @@ include("db_actions/db.php");
 
 include("includes/header.php");
 
-$modify = false;
-if(isset($_GET['id'])) {
-	$id = $_GET['id'];
-	$modify = true;
-	$query = "SELECT * FROM users WHERE id = $id";
-	$result = mysqli_query($conn, $query);
-
-	if(mysqli_num_rows($result) == 1) {
-		$row = mysqli_fetch_array($result);
-		$username = $row['name'];
-		$phoneNumber = $row['phone_number'];
-		$email = $row['email'];
-	}
-}
 ?>
 <div class="container p-4">
 	<div class="row">
@@ -40,28 +26,33 @@ if(isset($_GET['id'])) {
 			<div class="card card-body">
 
 				<form 
-				action="<?php if(!$modify) {echo "db_actions/save_user.php";}else {echo "db_actions/edit_user.php?id=$id";}?>"
+				action="db_actions/save_user.php"
 				method="POST"
 				>
 					<legend>Register</legend>
+					<input
+					type="hidden"
+					id="inputId"
+					name="user_id"
+					>
 					<div class="mb-3">
 						<input 
+						id="inputName"
 						type="text"
 						name="user_name"
 						class="form-control"
 						placeholder="User Name"
-						value="<?php if($modify) echo $username; ?>"
 						required
 						autofocus
 						>
 					</div>
 					<div class="mb-3">
 						<input
+						id="inputPhone"
 						type="tel"
 						name="phone_number"
 						class="form-control"
 						placeholder="Phone Number"
-						value="<?php if($modify) echo $phoneNumber; ?>"
 						pattern="[0-9]{10}"
 						required
 						> 
@@ -71,11 +62,11 @@ if(isset($_GET['id'])) {
 					</div>
 					<div class="mb-3">
 						<input
+						id="inputEmail"
 						type="email"
 						name="user_email"
 						class="form-control"
 						placeholder="Email"
-						value="<?php if($modify) echo $email; ?>"
 						required
 						>
 						<span id="phoneHelpInline" class="form-text">
@@ -84,10 +75,11 @@ if(isset($_GET['id'])) {
 					</div>
 					<div class="d-grid gap-2">
 						<input
+						id="formBtn"
 						type="submit"
 						class="btn btn-primary"
-						name="<?php if($modify){echo "edit_user";}else {echo "save_user";}?>"
-						value="<?php if($modify){ echo "Edit"; }else { echo "Save"; }?>"
+						name="save_user"
+						value="Save"
 						>
 					</div>
 				</form>
@@ -99,6 +91,7 @@ if(isset($_GET['id'])) {
 			<table class="table table-bordered">
 				<thead>
 					<tr>
+						<th style="display:none;">Id</th>
 						<th>Name</th>
 						<th>Phone Number</thk>
 						<th>Email</th>
@@ -112,14 +105,18 @@ if(isset($_GET['id'])) {
 
 					while($row = mysqli_fetch_array($result)) {?>
 						<tr>
+						<td style="display: none;"><?php echo $row['id'] ?></td>
 						<td><?php echo $row['name'] ?></td>
 						<td><?php echo $row['phone_number'] ?></td>
 						<td><?php echo $row['email'] ?></td>
 						<td>
-							<a href="index.php?id=<?php echo $row['id'] ?>" style="text-decoration:none;">
+							<button id="btnEdit" class="button_edit btn">
 								<i class='fas fa-edit' style='font-size:16px'></i>
-							</a>
-							<a href="db_actions/delete_user.php?id=<?php echo $row['id']?>" style="text-decoration:none;">
+							</button>
+							<a
+							href="db_actions/delete_user.php?id=<?php echo $row['id']?>"
+							class="btn"
+							>
  								<i class='fas fa-times-circle' style='font-size:16px'></i>
 							</a>
 						</td>
@@ -130,5 +127,4 @@ if(isset($_GET['id'])) {
 		</div>
 	</div>
 </div>
-
 <?php include("includes/footer.php")?>

@@ -3,7 +3,7 @@
 include("db.php");
 
 if(isset($_POST['edit_user'])) {
-	$id = $_GET['id'];
+	$id = $_POST['user_id'];
 	$userName =	$_POST['user_name'];
 	$phoneNumber = $_POST['phone_number'];
 	$userEmail = $_POST['user_email'];
