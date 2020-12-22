@@ -5,7 +5,9 @@
 		let currenTr = $(this).closest('tr');
 		let formulario = $("form"); 
 		let formButton = $("#formBtn");
+		let ageInput = $("#age");
 
+		ageInput.css("display", "block");
 		$('.selectedtr').removeClass('selectedtr');
 		currenTr.addClass('selectedtr');
 
@@ -19,12 +21,21 @@
 		let nameRow = currenTr.children('td:eq(1)').text();
 		let phoneRow = currenTr.children('td:eq(2)').text();
 		let emailRow = currenTr.children('td:eq(3)').text();
+		let birthRow = currenTr.children('td:eq(4)').text();
 
 		$('#inputId').val(idRow);	
 		$("#inputName").val(nameRow);
 		$("#inputPhone").val(phoneRow);
 		$("#inputEmail").val(emailRow);
+		$("#inputBirthday").val(birthRow);
 
+		console.log(age)
+		$('#inputBirthday').change(function() {
+			var date = new Date($('#inputBirthday').val());
+			var today = new Date();
+			let age = Math.floor((today-date)/ (365 * 24 * 60 * 60 *1000));
+			ageInput.val(age);	
+		})
 	});
 </script>
 </body>

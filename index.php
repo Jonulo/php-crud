@@ -73,6 +73,24 @@ include("includes/header.php");
 							Format: ...@...
     				</span>
 					</div>
+					<div class="mb-3">
+						<input
+						id="inputBirthday"
+						type="date"
+						name="birthday"
+						class="form-control"
+						required
+						>
+					</div>
+					<div class="mb-3">
+						<input
+						id="age"
+						name="age"
+						style="display:none;"
+						class="form-control"
+						disabled
+						>
+					</div>
 					<div class="d-grid gap-2">
 						<input
 						id="formBtn"
@@ -82,6 +100,8 @@ include("includes/header.php");
 						value="Save"
 						>
 					</div>
+
+					
 				</form>
 
 			</div>
@@ -95,6 +115,7 @@ include("includes/header.php");
 						<th>Name</th>
 						<th>Phone Number</thk>
 						<th>Email</th>
+						<th>Birthday</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -109,6 +130,7 @@ include("includes/header.php");
 						<td><?php echo $row['name'] ?></td>
 						<td><?php echo $row['phone_number'] ?></td>
 						<td><?php echo $row['email'] ?></td>
+						<td><?php echo $row['birthday']?></td>
 						<td>
 							<button id="btnEdit" class="button_edit btn">
 								<i class='fas fa-edit' style='font-size:16px'></i>

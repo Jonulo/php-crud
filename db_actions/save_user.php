@@ -7,8 +7,9 @@ if(isset($_POST['save_user'])){
 	$userName =	$_POST['user_name'];
 	$phoneNumber = $_POST['phone_number'];
 	$userEmail = $_POST['user_email'];
+	$birthday = $_POST['birthday'];
 
-	$query = "INSERT INTO users(name, phone_number, email) VALUES ('$userName','$phoneNumber', '$userEmail')";
+	$query = "INSERT INTO users(name, phone_number, email, birthday) VALUES ('$userName','$phoneNumber', '$userEmail', '$birthday')";
 	$result =	mysqli_query($conn, $query);
 
 	if(!$result){
